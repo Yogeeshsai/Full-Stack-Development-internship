@@ -1,0 +1,24 @@
+<script src="https://js.stripe.com/v3/"></script>
+
+<form id="payment-form">
+  <div id="card-element"></div>
+  <button id="submit-button">Pay</button>
+</form>
+
+<script>
+  var stripe = Stripe('YOUR_PUBLISHABLE_KEY');
+  var elements = stripe.elements();
+  var card = elements.create('card');
+  card.mount('#card-element');
+
+  document.getElementById('payment-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        // Handle error
+      } else {
+        // Send token to your server
+      }
+    });
+  });
+</script>
